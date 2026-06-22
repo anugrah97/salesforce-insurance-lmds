@@ -517,7 +517,7 @@ manifest/
 - **Planning:** Claude Opus (architecture, data model, rules design)
 - **Implementation:** Claude Sonnet (metadata XML, Apex, LWC generation)
 - **Deployment:** VS Code Salesforce Extension Pack → `sf project deploy start`
-- **Version Control:** GitHub (this repo)
+- **Version Control:** [GitHub — anugrah97/salesforce-insurance-lmds](https://github.com/anugrah97/salesforce-insurance-lmds)
 - **Portfolio:** PRD hosted on personal portfolio site as project documentation
 
 ### API Version
