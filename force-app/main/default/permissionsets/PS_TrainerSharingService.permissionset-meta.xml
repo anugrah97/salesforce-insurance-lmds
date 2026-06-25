@@ -13,12 +13,14 @@
         <modifyAllRecords>false</modifyAllRecords>
     </objectPermissions>
     <objectPermissions>
+        <!-- viewAllRecords is a Phase 1 bridge since Lead_Activity__c is now a Lookup (not MasterDetail).
+             Phase 2 will replace this with Lead_Activity__cShare Apex Managed Sharing. -->
         <object>Lead_Activity__c</object>
         <allowCreate>true</allowCreate>
         <allowRead>true</allowRead>
         <allowEdit>false</allowEdit>
         <allowDelete>false</allowDelete>
-        <viewAllRecords>false</viewAllRecords>
+        <viewAllRecords>true</viewAllRecords>
         <modifyAllRecords>false</modifyAllRecords>
     </objectPermissions>
     <objectPermissions>

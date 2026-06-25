@@ -40,7 +40,7 @@ private class LeadScoringEngineTest {
     @IsTest
     static void testPropensityScore_BANCABase() {
         Lead l = buildLead('BANCA', 'Referral', 'Term Life');
-        l.CreatedDate = DateTime.now();
+        // CreatedDate is null for in-memory lead; engine treats null as "new" (no age penalty)
         Integer score = LeadScoringEngine.calculatePropensityScore(l, new List<Lead_Activity__c>(), 40);
         // Base 60 (BANCA) + 10 (Referral) = 70
         System.assertEquals(70, score, 'BANCA base + referral should be 70');
@@ -49,7 +49,7 @@ private class LeadScoringEngineTest {
     @IsTest
     static void testPropensityScore_HotThreshold() {
         Lead l = buildLead('BANCA', 'Referral', 'Health Insurance');
-        l.CreatedDate = DateTime.now();
+        // CreatedDate is null for in-memory lead; no age penalty applied
         List<Lead_Activity__c> acts = new List<Lead_Activity__c>{
             new Lead_Activity__c(Activity_Type__c='Phone Call'),
             new Lead_Activity__c(Activity_Type__c='Phone Call'),

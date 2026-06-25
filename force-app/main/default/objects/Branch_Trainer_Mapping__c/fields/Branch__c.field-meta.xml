@@ -7,5 +7,6 @@
     <relationshipLabel>Trainer Mappings</relationshipLabel>
     <relationshipName>Trainer_Mappings</relationshipName>
     <required>true</required>
+    <deleteConstraint>Restrict</deleteConstraint>
     <externalId>false</externalId>
 </CustomField>

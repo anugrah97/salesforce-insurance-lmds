@@ -2,13 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Lead__c</fullName>
     <label>Lead</label>
-    <type>MasterDetail</type>
+    <type>Lookup</type>
     <referenceTo>Lead</referenceTo>
     <relationshipLabel>Lead Activities</relationshipLabel>
     <relationshipName>Lead_Activities</relationshipName>
-    <relationshipOrder>0</relationshipOrder>
-    <reparentableMasterDetail>false</reparentableMasterDetail>
-    <writeRequiresMasterRead>false</writeRequiresMasterRead>
-    <required>true</required>
+    <required>false</required>
+    <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
 </CustomField>

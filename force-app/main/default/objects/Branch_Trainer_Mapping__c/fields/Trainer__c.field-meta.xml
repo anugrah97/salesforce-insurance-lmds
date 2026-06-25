@@ -6,6 +6,6 @@
     <referenceTo>User</referenceTo>
     <relationshipLabel>Trainer Branch Mappings</relationshipLabel>
     <relationshipName>Trainer_Branch_Mappings</relationshipName>
-    <required>true</required>
+    <required>false</required>
     <externalId>false</externalId>
 </CustomField>

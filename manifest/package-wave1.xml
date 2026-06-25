@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  Wave 1: Deploy custom objects and Lead custom fields FIRST.
+  Apex classes and triggers reference these — they must exist before Wave 2.
+  Usage: sf project deploy start --manifest manifest/package-wave1.xml --target-org trailhead-dev
+-->
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <version>67.0</version>
+
+    <!-- Custom objects (Branch__c, Branch_Trainer_Mapping__c, Lead_Activity__c) -->
+    <types>
+        <members>Branch__c</members>
+        <members>Branch_Trainer_Mapping__c</members>
+        <members>Lead_Activity__c</members>
+        <name>CustomObject</name>
+    </types>
+
+    <!-- Custom fields on Lead (standard object — deploy as CustomField, not CustomObject) -->
+    <types>
+        <members>Lead.Activity_Count__c</members>
+        <members>Lead.Assigned_FLS__c</members>
+        <members>Lead.Branch__c</members>
+        <members>Lead.Channel__c</members>
+        <members>Lead.Engagement_Score__c</members>
+        <members>Lead.Full_Name__c</members>
+        <members>Lead.Is_Cross_Sell__c</members>
+        <members>Lead.Last_Score_Updated__c</members>
+        <members>Lead.Lead_Score__c</members>
+        <members>Lead.Product__c</members>
+        <members>Lead.Propensity_Score__c</members>
+        <members>Lead.Score_Tag__c</members>
+        <members>Lead.Source__c</members>
+        <name>CustomField</name>
+    </types>
+
+</Package>

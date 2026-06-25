@@ -29,7 +29,6 @@
     <types>
         <members>Branch__c</members>
         <members>Branch_Trainer_Mapping__c</members>
-        <members>Lead</members>
         <members>Lead_Activity__c</members>
         <name>CustomObject</name>
     </types>

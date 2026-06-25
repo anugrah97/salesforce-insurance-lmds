@@ -1,85 +1,90 @@
+/**
+ * FileValidationTriggerTest
+ * Tests the @TestVisible getValidationError(title, extension, sizeBytes) overload directly.
+ * ContentVersion.FileExtension, FileType, and ContentSize are system-managed fields
+ * that cannot be set via DML in tests, so we test the core logic via the param overload.
+ */
 @IsTest
 private class FileValidationTriggerTest {
 
-    // ─── Helpers ────────────────────────────────────────────────────────────────
-
-    private static ContentVersion buildCV(String title, String ext, Long sizeBytes) {
-        ContentVersion cv = new ContentVersion();
-        cv.Title          = title;
-        cv.FileExtension  = ext;
-        cv.FileType       = ext; // simplified for unit test
-        cv.ContentSize    = sizeBytes;
-        cv.PathOnClient   = title + '.' + ext;
-        cv.VersionData    = Blob.valueOf('test');
-        return cv;
-    }
-
-    // ─── Tests ──────────────────────────────────────────────────────────────────
-
     @IsTest
     static void testPdfPassesValidation() {
-        ContentVersion cv = buildCV('Policy_Doc', 'pdf', 1024 * 1024); // 1 MB
-        Test.startTest();
-        String err = FileValidationTrigger.getValidationError(cv);
-        Test.stopTest();
+        String err = FileValidationTrigger.getValidationError('Policy_Doc', 'pdf', 1 * 1024 * 1024L);
         System.assertEquals(null, err, 'A valid PDF under 10 MB should pass');
     }
 
     @IsTest
     static void testJpgPassesValidation() {
-        ContentVersion cv = buildCV('ID_Photo', 'jpg', 500 * 1024); // 500 KB
-        String err = FileValidationTrigger.getValidationError(cv);
+        String err = FileValidationTrigger.getValidationError('ID_Photo', 'jpg', 500 * 1024L);
         System.assertEquals(null, err, 'A valid JPG should pass');
     }
 
     @IsTest
+    static void testJpegPassesValidation() {
+        String err = FileValidationTrigger.getValidationError('Scan', 'jpeg', 200 * 1024L);
+        System.assertEquals(null, err, 'A valid JPEG should pass');
+    }
+
+    @IsTest
     static void testPngPassesValidation() {
-        ContentVersion cv = buildCV('Screenshot', 'png', 2 * 1024 * 1024); // 2 MB
-        String err = FileValidationTrigger.getValidationError(cv);
+        String err = FileValidationTrigger.getValidationError('Screenshot', 'png', 2 * 1024 * 1024L);
         System.assertEquals(null, err, 'A valid PNG should pass');
     }
 
     @IsTest
     static void testExeFailsValidation() {
-        ContentVersion cv = buildCV('Malware', 'exe', 100);
-        String err = FileValidationTrigger.getValidationError(cv);
+        String err = FileValidationTrigger.getValidationError('Malware', 'exe', 100L);
         System.assertNotEquals(null, err, 'An .exe should be rejected');
         System.assert(err.contains('.exe'), 'Error should mention the bad extension');
     }
 
     @IsTest
     static void testDocxFailsValidation() {
-        ContentVersion cv = buildCV('Proposal', 'docx', 200 * 1024);
-        String err = FileValidationTrigger.getValidationError(cv);
+        String err = FileValidationTrigger.getValidationError('Proposal', 'docx', 200 * 1024L);
         System.assertNotEquals(null, err, 'A .docx should be rejected');
+        System.assert(err.contains('.docx'), 'Error should mention the extension');
+    }
+
+    @IsTest
+    static void testMp4FailsValidation() {
+        String err = FileValidationTrigger.getValidationError('Video', 'mp4', 5 * 1024 * 1024L);
+        System.assertNotEquals(null, err, 'An .mp4 should be rejected');
     }
 
     @IsTest
     static void testOversizedPdfFails() {
-        ContentVersion cv = buildCV('HugeDoc', 'pdf', 11 * 1024 * 1024); // 11 MB
-        String err = FileValidationTrigger.getValidationError(cv);
-        System.assertNotEquals(null, err, '11 MB PDF should be rejected');
+        Long elevenMb = 11L * 1024 * 1024;
+        String err = FileValidationTrigger.getValidationError('HugeDoc', 'pdf', elevenMb);
+        System.assertNotEquals(null, err, 'An 11 MB PDF should be rejected');
         System.assert(err.contains('10 MB'), 'Error should mention the 10 MB limit');
     }
 
     @IsTest
     static void testExactly10MbPasses() {
-        ContentVersion cv = buildCV('EdgeCase', 'pdf', 10 * 1024 * 1024); // exactly 10 MB
-        String err = FileValidationTrigger.getValidationError(cv);
+        Long tenMb = 10L * 1024 * 1024;
+        String err = FileValidationTrigger.getValidationError('EdgeCase', 'pdf', tenMb);
         System.assertEquals(null, err, 'Exactly 10 MB should be allowed');
     }
 
     @IsTest
+    static void testNullExtensionFails() {
+        String err = FileValidationTrigger.getValidationError('NoExt', null, 100L);
+        System.assertNotEquals(null, err, 'Null extension should be rejected');
+    }
+
+    @IsTest
+    static void testNullSizePasses() {
+        // ContentSize can be null before content is processed
+        String err = FileValidationTrigger.getValidationError('Doc', 'pdf', null);
+        System.assertEquals(null, err, 'Null size (pre-processing) should pass size check');
+    }
+
+    @IsTest
     static void testBulkValidation() {
-        List<ContentVersion> versions = new List<ContentVersion>();
+        // Ensure no governor limit issues with 50 valid calls
         for (Integer i = 0; i < 50; i++) {
-            versions.add(buildCV('doc_' + i, 'pdf', 1024));
+            String err = FileValidationTrigger.getValidationError('doc_' + i, 'pdf', 1024L);
+            System.assertEquals(null, err, 'Bulk: valid PDF should pass at index ' + i);
         }
-        Test.startTest();
-        // Should not throw
-        FileValidationTrigger.validateOnVersionInsert(versions);
-        Test.stopTest();
-        // If we reached here, no errors on valid files
-        System.assert(true, 'Bulk validation completed without unexpected errors');
     }
 }

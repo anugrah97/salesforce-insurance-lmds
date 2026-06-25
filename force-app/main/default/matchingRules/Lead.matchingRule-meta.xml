@@ -15,6 +15,7 @@
         </matchingRuleItems>
         <booleanFilter>1 AND 2</booleanFilter>
         <description>Matches leads with same MobilePhone AND same Product. Used to block same-product duplicates.</description>
+        <ruleStatus>Active</ruleStatus>
     </matchingRules>
     <matchingRules>
         <fullName>Lead_Dedup_Mobile_Only</fullName>
@@ -25,5 +26,6 @@
             <matchingMethod>Exact</matchingMethod>
         </matchingRuleItems>
         <description>Matches leads with same MobilePhone only. Used to detect cross-product customers.</description>
+        <ruleStatus>Active</ruleStatus>
     </matchingRules>
 </MatchingRules>

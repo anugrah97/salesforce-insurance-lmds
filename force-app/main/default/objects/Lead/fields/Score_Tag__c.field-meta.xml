@@ -5,7 +5,7 @@
     <type>Picklist</type>
     <required>false</required>
     <externalId>false</externalId>
-    <description>AI-driven lead tag. Hot = Propensity > 75. At Risk = Score < 30 with no activity for 7 days.</description>
+    <description>AI-driven lead tag. Hot = Propensity &gt; 75. At Risk = Score &lt; 30 with no activity for 7 days.</description>
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
