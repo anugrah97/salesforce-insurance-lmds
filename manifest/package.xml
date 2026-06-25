@@ -1,44 +1,82 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <version>67.0</version>
+
+    <!-- ── Apex Classes ─────────────────────────────────────────────────────── -->
     <types>
-        <members>*</members>
+        <members>FileValidationTrigger</members>
+        <members>FileValidationTriggerTest</members>
+        <members>LeadNormaliser</members>
+        <members>LeadNormaliserTest</members>
+        <members>LeadScoreScheduler</members>
+        <members>LeadScoringEngine</members>
+        <members>LeadScoringEngineTest</members>
+        <members>TrainerSharingService</members>
         <name>ApexClass</name>
     </types>
+
+    <!-- ── Apex Triggers ────────────────────────────────────────────────────── -->
     <types>
-        <members>*</members>
-        <name>ApexComponent</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>ApexPage</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>ApexTestSuite</name>
-    </types>
-    <types>
-        <members>*</members>
+        <members>BranchTrainerMappingTrigger</members>
+        <members>ContentDocumentLinkBeforeInsert</members>
+        <members>ContentVersionBeforeInsert</members>
+        <members>LeadActivityAfter</members>
+        <members>LeadBeforeInsert</members>
         <name>ApexTrigger</name>
     </types>
+
+    <!-- ── Custom Objects ───────────────────────────────────────────────────── -->
     <types>
-        <members>*</members>
-        <name>AuraDefinitionBundle</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>LightningComponentBundle</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>StaticResource</name>
-    </types>
-    <types>
-        <members>Lead.Full_Name__c</members>
-        <name>CustomField</name>
-    </types>
-    <types>
+        <members>Branch__c</members>
+        <members>Branch_Trainer_Mapping__c</members>
         <members>Lead</members>
+        <members>Lead_Activity__c</members>
         <name>CustomObject</name>
     </types>
-    <version>67.0</version>
+
+    <!-- ── Custom Fields — Lead ─────────────────────────────────────────────── -->
+    <types>
+        <members>Lead.Activity_Count__c</members>
+        <members>Lead.Assigned_FLS__c</members>
+        <members>Lead.Branch__c</members>
+        <members>Lead.Channel__c</members>
+        <members>Lead.Engagement_Score__c</members>
+        <members>Lead.Full_Name__c</members>
+        <members>Lead.Is_Cross_Sell__c</members>
+        <members>Lead.Last_Score_Updated__c</members>
+        <members>Lead.Lead_Score__c</members>
+        <members>Lead.Product__c</members>
+        <members>Lead.Propensity_Score__c</members>
+        <members>Lead.Score_Tag__c</members>
+        <members>Lead.Source__c</members>
+        <name>CustomField</name>
+    </types>
+
+    <!-- ── Matching Rules ───────────────────────────────────────────────────── -->
+    <types>
+        <members>Lead.Lead_Dedup_Mobile_Only</members>
+        <members>Lead.Lead_Dedup_Mobile_Product</members>
+        <name>MatchingRule</name>
+    </types>
+
+    <!-- ── Duplicate Rules ──────────────────────────────────────────────────── -->
+    <types>
+        <members>Lead.Lead_Duplicate_Same_Product</members>
+        <name>DuplicateRule</name>
+    </types>
+
+    <!-- ── Permission Sets ──────────────────────────────────────────────────── -->
+    <types>
+        <members>PS_AI_Insights</members>
+        <members>PS_BulkImport</members>
+        <members>PS_TrainerSharingService</members>
+        <name>PermissionSet</name>
+    </types>
+
+    <!-- ── Lightning Web Components ─────────────────────────────────────────── -->
+    <types>
+        <members>aiInsightsPanel</members>
+        <name>LightningComponentBundle</name>
+    </types>
+
 </Package>

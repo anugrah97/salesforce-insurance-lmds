@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DuplicateRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_Duplicate_Same_Product</fullName>
+    <label>Lead Duplicate - Same Product Block</label>
+    <description>Blocks creation of a lead when the same customer (by mobile) already has a lead for the same product.</description>
+    <isActive>true</isActive>
+    <operationsOnInsert>Block</operationsOnInsert>
+    <operationsOnUpdate>Allow</operationsOnUpdate>
+    <alertText>A lead for this customer and product already exists. Please check existing leads before creating a new one.</alertText>
+    <duplicateRuleMatchRules>
+        <matchRuleSObjectType>Lead</matchRuleSObjectType>
+        <matchingRule>Lead.Lead_Dedup_Mobile_Product</matchingRule>
+        <objectMapping>
+            <inputObject>Lead</inputObject>
+            <outputObject>Lead</outputObject>
+            <fieldMappings>
+                <inputField>MobilePhone</inputField>
+                <outputField>MobilePhone</outputField>
+            </fieldMappings>
+            <fieldMappings>
+                <inputField>Product__c</inputField>
+                <outputField>Product__c</outputField>
+            </fieldMappings>
+        </objectMapping>
+    </duplicateRuleMatchRules>
+    <securityOption>EnforceSharingRules</securityOption>
+    <sortOrder>1</sortOrder>
+</DuplicateRule>

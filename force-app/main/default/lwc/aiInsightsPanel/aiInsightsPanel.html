@@ -1,0 +1,89 @@
+<template>
+    <lightning-card title="AI Insights" icon-name="utility:einstein">
+        <template if:true={isLoading}>
+            <div class="slds-is-relative slds-p-around_medium">
+                <lightning-spinner alternative-text="Loading scores..." size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+
+                <!-- Score Tag Badge -->
+                <template if:true={isHot}>
+                    <span class="slds-badge slds-badge_lightest hot-badge slds-m-bottom_small">
+                        🔥 HOT LEAD
+                    </span>
+                </template>
+                <template if:true={isAtRisk}>
+                    <span class="slds-badge slds-badge_lightest risk-badge slds-m-bottom_small">
+                        ⚠️ AT RISK
+                    </span>
+                </template>
+
+                <!-- Score Grid -->
+                <div class="score-grid slds-m-top_small">
+
+                    <!-- Lead Score -->
+                    <div class="score-card">
+                        <div class={leadScoreClass}>
+                            <span class="score-value">{leadScore}</span>
+                            <span class="score-max">/100</span>
+                        </div>
+                        <div class="score-label">Lead Score</div>
+                        <div class="score-bar">
+                            <div class={leadScoreBarClass} style={leadScoreBarStyle}></div>
+                        </div>
+                        <div class="score-tooltip">
+                            Overall quality based on profile completeness, source, and activities
+                        </div>
+                    </div>
+
+                    <!-- Propensity Score -->
+                    <div class="score-card">
+                        <div class={propensityScoreClass}>
+                            <span class="score-value">{propensityScore}</span>
+                            <span class="score-max">/100</span>
+                        </div>
+                        <div class="score-label">Propensity to Convert</div>
+                        <div class="score-bar">
+                            <div class={propensityBarClass} style={propensityBarStyle}></div>
+                        </div>
+                        <div class="score-tooltip">
+                            Likelihood of converting to a Proposal based on channel, activity and source
+                        </div>
+                    </div>
+
+                    <!-- Engagement Score -->
+                    <div class="score-card">
+                        <div class={engagementScoreClass}>
+                            <span class="score-value">{engagementScore}</span>
+                            <span class="score-max">/100</span>
+                        </div>
+                        <div class="score-label">Engagement</div>
+                        <div class="score-bar">
+                            <div class={engagementBarClass} style={engagementBarStyle}></div>
+                        </div>
+                        <div class="score-tooltip">
+                            Activity intensity: call frequency, visit recency
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Last Updated -->
+                <template if:true={lastUpdated}>
+                    <div class="slds-text-body_small slds-text-color_weak slds-m-top_small">
+                        Last updated: {lastUpdatedFormatted}
+                    </div>
+                </template>
+
+                <!-- Activity Count -->
+                <div class="slds-text-body_small slds-m-top_x-small">
+                    Total Activities: <strong>{activityCount}</strong>
+                </div>
+
+            </div>
+        </template>
+    </lightning-card>
+</template>

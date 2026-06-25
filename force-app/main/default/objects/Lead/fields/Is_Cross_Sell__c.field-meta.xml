@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Cross_Sell__c</fullName>
+    <label>Is Cross Sell</label>
+    <type>Checkbox</type>
+    <defaultValue>false</defaultValue>
+    <externalId>false</externalId>
+    <description>True when this customer already has a lead for a different product. Set by deduplication logic.</description>
+</CustomField>

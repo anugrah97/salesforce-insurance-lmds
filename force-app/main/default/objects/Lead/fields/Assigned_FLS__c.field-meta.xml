@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assigned_FLS__c</fullName>
+    <label>Assigned FLS</label>
+    <type>Lookup</type>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>Assigned Leads</relationshipLabel>
+    <relationshipName>Assigned_Leads</relationshipName>
+    <required>false</required>
+    <externalId>false</externalId>
+    <description>The Field Sales representative assigned to work this lead</description>
+</CustomField>
